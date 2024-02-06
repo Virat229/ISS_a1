@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Blog Page</title>
+    <style>
+        @font-face {
+  font-family: myFont;
+  src:url(text.ttf);
+  
+}
+@font-face {
+  font-family:myF;
+  src:url(Slowdex.ttf);
+}
+    body {
+        font-family: myFont;
+        margin: 0;
+        padding: 0;
+        background:white; 
+        color: #05445E; 
+    }
+
+    header {
+        background-color: #189AB4; 
+        color: white;
+        text-align: center;
+        padding: 10px;
+    }
+
+    article {
+        
+        margin: 20px;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #189AB4; 
+        font-family: myF;
+    }
+
+    .comments {
+        margin-top: 20px;
+    }
+
+    .comment-input {
+        display: flex;
+        margin-top: 10px;
+    }
+
+    .comment-input input {
+        flex: 1;
+        padding: 5px;
+    }
+
+    .comment-input button {
+        background-color: #189AB4; 
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+
+    .likes {
+        margin-top: 10px;
+        color: #189AB4; 
+    }
+
+    .like-btn {
+        background-color: white; 
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    .delete-comments-btn{
+        background-color:#189AB4;
+        color:white;
+    }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 style="font-family: myF;">My Blogs</h1>
+    </header>
+
+    <article>
+        <h2>Blog 1: AI</h2>
+        <p>
+ Artificial Intelligence (AI) stands at the forefront of technological innovation, representing a transformative force that is reshaping the way we interact with machines, process information, and solve complex problems. At its core, AI aims to replicate human intelligence, enabling machines to perform tasks that typically require human cognitive abilities. This interdisciplinary field encompasses a diverse range of techniques, applications, and methodologies, contributing to advancements in machine learning, natural language processing, computer vision, robotics, and more.
+
+One of the fundamental pillars of AI is Machine Learning (ML), a subset that empowers computers to learn from data and improve their performance over time without explicit programming. ML algorithms analyze patterns in data, enabling systems to make predictions, identify trends, and adapt to changing circumstances. This adaptive learning capability has found applications across various domains, from recommendation systems in e-commerce to personalized healthcare diagnostics.
+
+Deep Learning, a specialized form of ML, has gained prominence for its ability to emulate the human brain's neural networks. These deep neural networks, often arranged in layers, excel at tasks such as image and speech recognition. The success of deep learning models, particularly in complex tasks like image classification and language translation, has propelled AI into new realms of sophistication.
+
+Natural Language Processing (NLP) is another key component of AI, focusing on the interaction between computers and human language. NLP algorithms enable machines to comprehend, interpret, and generate human-like text, facilitating applications such as chatbots, sentiment analysis, and language translation. The evolution of NLP has led to more advanced conversational agents, capable of understanding context, sentiment nuances, and even engaging in complex dialogues.
+
+In the realm of computer vision, AI plays a pivotal role in processing and interpreting visual information. Computer vision algorithms empower machines to recognize objects, faces, and gestures, making it essential for applications like facial recognition systems, autonomous vehicles, and augmented reality experiences. The ability to extract meaningful insights from visual data opens up new possibilities for industries ranging from healthcare to manufacturing.
+        </p>
+
+        <div class="comments">
+            <h3>Comments:</h3>
+            <div id="comments1"></div>
+            <div class="comment-input">
+                <input type="text" id="commentInput1" placeholder="Add a comment">
+                <button onclick="addComment(1)" style="font-family: myFont;">Add Comment</button>
+            </div>
+            <button class="delete-comments-btn" style = "font-family: myFont;"onclick="deleteComments(1)">Delete All Comments</button>
+        </div>
+        </div>
+
+        <div class="likes">
+            <p>Likes: <span id="likeCount1" class="persist-data">0</span></p>
+            <button class="like-btn" onclick="like(1)">❤️</button>
+        </div>
+    </article>
+
+    <article>
+        <h2>Blog 2: Disadvantages of AI</h2>
+        <p>
+            While Artificial Intelligence (AI) brings about numerous benefits and advancements, it also comes with several disadvantages and challenges. Understanding these drawbacks is essential for responsible development and deployment of AI technologies. Here are some of the key disadvantages of AI:
+
+Job Displacement: One of the significant concerns associated with AI is the potential displacement of jobs. As automation and AI systems become more sophisticated, there is a risk of certain jobs becoming obsolete, particularly those that involve routine and repetitive tasks. This can lead to unemployment and the need for workforce reskilling.
+
+Bias and Fairness: AI systems are trained on historical data, which may contain biases. If the training data reflects existing societal biases, the AI models can perpetuate and even exacerbate these biases. This can result in unfair treatment and discrimination, particularly in areas like hiring, lending, and law enforcement.
+
+Lack of Transparency: Many AI algorithms, especially complex deep learning models, operate as "black boxes," making it challenging to understand how they arrive at specific decisions. Lack of transparency can lead to a lack of trust among users, as they may not have visibility into the reasoning behind AI-driven decisions.
+
+Security Concerns: AI systems can be vulnerable to adversarial attacks, where malicious actors manipulate input data to deceive the AI model. Additionally, the increasing use of AI in critical systems raises concerns about the security and integrity of these systems, making them potential targets for cyberattacks.
+        </p>
+
+        <div class="comments">
+            <h3>Comments:</h3>
+            <div id="comments2"></div>
+            <div class="comment-input">
+                <input type="text" id="commentInput2" placeholder="Add a comment">
+                <button onclick="addComment(2)" style="font-family: myFont;">Add Comment</button>
+            </div>
+        
+        <button class="delete-comments-btn" onclick="deleteComments(2)" style="font-family:myFont">Delete All Comments</button>
+    
+        </div>
+
+        <div class="likes">
+            <p>Likes: <span id="likeCount2" class="persist-data">0</span></p>
+            <button class="like-btn" onclick="like(2)">❤️</button>
+        </div>
+    </article>
+
+    <script>
+       function retrieveData(blogId, type) {
+            var key = `${type}_${blogId}`;
+            return localStorage.getItem(key) || "0";
+        }
+
+        
+        function storeData(blogId, type, value) {
+            var key = `${type}_${blogId}`;
+            localStorage.setItem(key, value);
+        }
+
+        
+        function addComment(blogId) {
+            var commentInput = document.getElementById(`commentInput${blogId}`);
+            var commentsContainer = document.getElementById(`comments${blogId}`);
+
+            var commentText = commentInput.value.trim();
+            if (commentText !== "") {
+                var commentDiv = document.createElement("div");
+                commentDiv.textContent = commentText;
+                commentsContainer.appendChild(commentDiv);
+                commentInput.value = "";
+            }
+        }
+
+        
+        function like(blogId) {
+            var likeCountElement = document.getElementById(`likeCount${blogId}`);
+            var currentLikes = parseInt(likeCountElement.textContent);
+            var newLikes = currentLikes + 1;
+
+            likeCountElement.textContent = newLikes;
+            storeData(blogId, 'likes', newLikes.toString());
+        }
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            var blog1Likes = retrieveData(1, 'likes');
+            var blog2Likes = retrieveData(2, 'likes');
+
+            document.getElementById('likeCount1').textContent = blog1Likes;
+            document.getElementById('likeCount2').textContent = blog2Likes;
+        });
+        function deleteComments(blogId) {
+            var commentsContainer = document.getElementById(`comments${blogId}`);
+            commentsContainer.innerHTML = ""; 
+        }
+    
+    </script>
+
+</body>
+</html>
